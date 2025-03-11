@@ -37,12 +37,14 @@ int main(int argc, char *argv[])
     ros::NodeHandle nh;
     // 4.创建 客户端 对象
     ros::ServiceClient client = nh.serviceClient<learning_service::AddInts>("AddInts");//<数据类型>(服务名）
-    //等待服务启动成功
+    
+    //等待服务启动成功。如果不等待服务器先启动，先运行启动客户端，那么就会直接死掉。所以一定要等服务端先启动。
     //方式1
     ros::service::waitForService("AddInts");
 
     //方式2
     // client.waitForExistence();
+    
     // 5.组织请求数据
     learning_service::AddInts ai; //创建数据对象,数据类型：功能包（learning_service）下的AddInts
     ai.request.num1 = 100;
